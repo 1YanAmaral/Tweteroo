@@ -1,12 +1,13 @@
 import express from "express";
 
 const server = express();
+server.use(express.json());
 
-let user = {
+/* let user = {
   username: "Usuário",
   avatar: "https://wallpapercave.com/wp/wp5223502.jpg",
 };
-
+ */
 const tweets = [
   {
     username: "Usuário",
@@ -70,6 +71,8 @@ const tweets = [
   },
 ];
 
+const users = [];
+
 server.get("/tweets", (req, res) => {
   const lastTweets = [];
   let i = tweets.length;
@@ -80,4 +83,9 @@ server.get("/tweets", (req, res) => {
   res.send(lastTweets);
 });
 
-server.listen(5000);
+server.post("/sign-up", (req, res) => {
+  users.push(req.body);
+  res.send("OK");
+});
+
+server.listen(5000, () => console.log("Listening on 5000"));
