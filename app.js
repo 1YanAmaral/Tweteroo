@@ -19,7 +19,8 @@ server.post("/sign-up", (req, res) => {
 
 server.post("/tweets", (req, res) => {
   const { username, tweet } = req.body;
-  const avatar = users.find((value) => value.username === username).avatar;
+  const user = users.find((value) => value.username === username);
+  const avatar = user.avatar;
 
   tweets.unshift({
     username,
@@ -32,11 +33,6 @@ server.post("/tweets", (req, res) => {
 
 server.get("/tweets", (req, res) => {
   const lastTweets = [...tweets].splice(0, 10);
-  /* if (tweets.length >= 10) {
-    lastTweets = [...tweets].splice(9, 1);
-    res.send(lastTweets);
-    return;
-  } */
 
   res.send(lastTweets);
 });
